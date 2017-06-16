@@ -31,7 +31,24 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', function (req, res) {
-    console.log(req.body);
+    if (typeof req.body === 'object') {
+        var brandId = req.body.brandID;
+        var domain = req.body.domain;
+        var path = req.body.path;
+        var dataToPush = {
+            activeTime: req.body.activeTime,
+            pageheight: req.body.pageheight,
+            pagewidth: req.body.pagewidth,
+            data: req.body.points
+        }
+    }
+    if (brandId && domain && path) {
+        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
+            console.log('data saved');
+        }).catch(function(err){
+            console.log(err);
+        })
+    }
     res.send('under development');
 });
 
