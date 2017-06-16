@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', function (req, res) {
-    console.log('hahah');
+    console.log(req.body);
     res.send('under development');
 });
 
