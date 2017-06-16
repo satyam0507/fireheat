@@ -32,9 +32,9 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     if (typeof req.body === 'object') {
-        var brandId = req.body.brandID;
-        var domain = req.body.domain;
-        var path = req.body.path;
+        var brandId = ""+req.body.brandID;
+        var domain = req.body.domain.replace(/[.$\[\]\/#]/g, ',');
+        var path = req.body.path.replace(/[.$\[\]\/#]/g, ',');
         var dataToPush = {
             activeTime: req.body.activeTime,
             pageheight: req.body.pageheight,
