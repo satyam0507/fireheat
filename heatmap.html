@@ -1,0 +1,50 @@
+<script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
+<style>
+
+</style>
+
+
+<div class="nv_heatmap">
+
+    <iframe id="webHeat" src="" frameborder="0" sandbox> </iframe>
+
+</div>
+
+<script>
+    window.addEventListener('load', loaded);
+    window.addEventListener('message',maessageListener);
+
+    function maessageListener(evt){
+        if(evt.data){
+            if(evt.data.type==='ready'){
+                console.log('ready');
+            }
+        }
+    }
+
+    function loaded() {
+        var config = {
+            container: document.querySelector('.nv_heatmap'),
+            backgroundColor: "rgba(0,0,0,0.3)",
+            radius: 18,
+            maxOpacity: .5,
+            minOpacity: 0.3,
+            gradient: {
+                // enter n keys between 0 and 1 here
+                // for gradient color customization
+                '.5': 'blue',
+                '.8': 'red',
+                '.95': 'white'
+            },
+            blur: 0.85,
+
+        };
+        var width = document.body.clientWidth;
+        var heatmapInstance = h337.create(config);
+        data = {
+            data: [],
+        };
+        heatmapInstance.setData(data);
+
+    }
+</script>

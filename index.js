@@ -24,6 +24,25 @@ admin.initializeApp({
 const dataBaseRef = admin.database().ref("fireheat/");
 
 
+app.get('/view/:name', function (req, res) {
+
+    var options = {
+        root: __dirname + '/',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
+
+    var fileName = req.params.name;
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Sent:', fileName);
+        }
+    });
+});
 
 app.get('/', function (req, res) {
     console.log('hahah');
