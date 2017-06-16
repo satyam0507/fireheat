@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <style>
+        .hide{
+            display: none!important;
+        }
+    </style>
     <div>
         <form>
             <div class="form-group">
@@ -23,7 +28,7 @@
     </div>
     <div class="nv_heatmap">
 
-        <iframe id="webHeat"  frameborder="0" sandbox> </iframe>
+        <iframe id="webHeat" height="0" width="0" class="hide"  frameborder="0"> </iframe>
 
     </div>
 
@@ -58,6 +63,11 @@
                 if (evt.data) {
                     if (evt.data.type === 'ready') {
                         console.log('ready');
+                        if(evt.data.nvData){
+                            iframeEl.setAttribute('height',evt.data.nvData.height);
+                            iframeEl.setAttribute('width',evt.data.nvData.width);
+                            iframeEl.classList.remove('hide');
+                        }
                     }
                 }
             }
