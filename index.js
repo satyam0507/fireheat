@@ -23,6 +23,9 @@ admin.initializeApp({
 
 const dataBaseRef = admin.database().ref("fireheat/");
 
+app.get('/serverData',function(req,res){
+    console.log(req);
+})
 
 app.get('/view/:name', function (req, res) {
 

@@ -13,7 +13,7 @@
 
 <body>
     <style>
-        .hide{
+        .hide {
             display: none!important;
         }
     </style>
@@ -28,7 +28,7 @@
     </div>
     <div class="nv_heatmap">
 
-        <iframe id="webHeat" height="0" width="0" class="hide"  frameborder="0"> </iframe>
+        <iframe id="webHeat" height="0" width="0" class="hide" frameborder="0"> </iframe>
 
     </div>
 
@@ -41,36 +41,45 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
     <script>
-
         (function () {
             window.addEventListener('load', loaded);
             window.addEventListener('message', maessageListener);
-            var btnEl =document.getElementById('saveBtn');
-            var iframeEl =document.getElementById('webHeat');
-            var pageUrl =document.getElementById('pageUrl').value;
-            if(btnEl){
-                btnEl.addEventListener('click',function(){
-                    pageUrl =document.getElementById('pageUrl').value;
-                    if(typeof pageUrl ==='string' && pageUrl.length){
-                        if(iframeEl){
-                            iframeEl.setAttribute('src',pageUrl);
+            var btnEl = document.getElementById('saveBtn');
+            var iframeEl = document.getElementById('webHeat');
+            var pageUrl = document.getElementById('pageUrl').value;
+            if (btnEl) {
+                btnEl.addEventListener('click', function () {
+                    pageUrl = document.getElementById('pageUrl').value;
+                    if (typeof pageUrl === 'string' && pageUrl.length) {
+                        if (iframeEl) {
+                            iframeEl.setAttribute('src', pageUrl);
                         }
                     }
                 })
             }
-            
+
 
             function maessageListener(evt) {
                 if (evt.data) {
                     if (evt.data.type === 'ready') {
                         console.log('ready');
-                        if(evt.data.nvData){
-                            iframeEl.setAttribute('height',evt.data.nvData.height);
-                            iframeEl.setAttribute('width','100%');
+                        if (evt.data.nvData) {
+                            iframeEl.setAttribute('height', evt.data.nvData.height);
+                            iframeEl.setAttribute('width', '100%');
                             iframeEl.classList.remove('hide');
                         }
-                     var url = new URL(pageUrl);
-                     console.log(url);
+                        var url = new URL(pageUrl);
+                        console.log(url);
+                        var domain = url.origin;
+                        var path = url.pathname;
+                        var brandID ='1161';
+                        fetch('/serverData?domain='+domain+'&path='+path+'brandID='+).then(function (res) {
+                            JSON.parse(res).then(function (data) {
+                                console.log(data);
+                            })
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
                     }
                 }
             }
