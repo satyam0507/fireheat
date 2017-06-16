@@ -39,7 +39,7 @@ app.post('/', function (req, res) {
             activeTime: req.body.activeTime,
             pageheight: req.body.pageheight,
             pagewidth: req.body.pagewidth,
-            data: req.body.points
+            data: JSON.stringify(req.body.points)
         }
     }
     // console.log('brandId :: '+brandId);
