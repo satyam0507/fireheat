@@ -1,9 +1,20 @@
 const express = require('express');
-const app = express();
 const admin = require("firebase-admin"),
     serviceAccount = require("./private/serviceAccountKey.json"),
     path = require('path'),
     bodyParser = require('body-parser');
+const app = express();
+
+function defaultContentTypeMiddleware(req, res, next) {
+    req.headers['content-type'] = 'application/json';
+    next();
+}
+
+app.use(defaultContentTypeMiddleware);
+app.use(bodyParser.json());
+
+app.set('port', (process.env.PORT || 4444));
+
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -12,9 +23,7 @@ admin.initializeApp({
 
 const dataBaseRef = admin.database().ref("fireheat/");
 
-app.use(bodyParser.json());
 
-app.set('port', (process.env.PORT || 4444));
 
 app.get('/', function (req, res) {
     console.log('hahah');
