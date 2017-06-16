@@ -12,6 +12,8 @@ admin.initializeApp({
 
 const dataBaseRef = admin.database().ref("fireheat/");
 
+app.use(bodyParser.json());
+
 app.set('port', (process.env.PORT || 4444));
 
 app.get('/', function (req, res) {
