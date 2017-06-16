@@ -42,13 +42,17 @@ app.post('/', function (req, res) {
             data: req.body.points
         }
     }
-    if (brandId && domain && path) {
-        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
-            console.log('data saved');
-        }).catch(function(err){
-            console.log(err);
-        })
-    }
+    console.log('brandId :: '+brandId);
+    console.log('domain :: '+domain);
+    console.log('path ::' +path);
+    console.log('dataToPush ::'+dataToPush);
+    // if (brandId && domain && path) {
+    //     dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
+    //         console.log('data saved');
+    //     }).catch(function(err){
+    //         console.log(err);
+    //     })
+    // }
     res.send('under development');
 });
 
