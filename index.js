@@ -1,11 +1,25 @@
 const express = require('express');
 const app = express();
+const admin = require("firebase-admin"),
+    serviceAccount = require("./private/serviceAccountKey.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://fcmpush-31f7a.firebaseio.com"
+});
+
+const dataBaseRef = admin.database().ref("fireheat/");
 
 app.set('port', (process.env.PORT || 4444));
 
 app.get('/', function (req, res) {
-    console.log(req);
+    console.log('hahah');
 })
+
+app.post('/',function (req, res) {
+    console.log('hahah');
+    res.send('under development');
+});
 
 
 app.listen(app.get('port'), function () {
