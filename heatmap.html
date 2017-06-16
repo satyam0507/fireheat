@@ -65,7 +65,7 @@
                         console.log('ready');
                         if(evt.data.nvData){
                             iframeEl.setAttribute('height',evt.data.nvData.height);
-                            iframeEl.setAttribute('width',evt.data.nvData.width);
+                            iframeEl.setAttribute('width','100%');
                             iframeEl.classList.remove('hide');
                         }
                     }
