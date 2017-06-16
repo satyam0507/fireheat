@@ -1,50 +1,93 @@
-<script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
-<style>
+<!DOCTYPE html>
+<html lang="en">
 
-</style>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+</head>
 
-<div class="nv_heatmap">
+<body>
+    <div>
+        <form>
+            <div class="form-group">
+                <label for="pageUrl">PageUrl</label>
+                <input type="url" class="form-control" id="pageUrl" placeholder="Enter Page Url">
+            </div>
+            <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+        </form>
+    </div>
+    <div class="nv_heatmap">
 
-    <iframe id="webHeat" src="" frameborder="0" sandbox> </iframe>
+        <iframe id="webHeat"  frameborder="0" sandbox> </iframe>
 
-</div>
+    </div>
 
-<script>
-    window.addEventListener('load', loaded);
-    window.addEventListener('message',maessageListener);
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
+    <script>
 
-    function maessageListener(evt){
-        if(evt.data){
-            if(evt.data.type==='ready'){
-                console.log('ready');
+        (function () {
+            window.addEventListener('load', loaded);
+            window.addEventListener('message', maessageListener);
+            var btnEl =document.getElementById('saveBtn');
+            var iframeEl =document.getElementById('webHeat');
+            if(btnEl){
+                btnEl.addEventListener('click',function(){
+                    var pageUrl =document.getElementById('pageUrl').value;
+                    if(typeof pageUrl ==='string' && pageUrl.length){
+                        if(iframeEl){
+                            iframeEl.setAttribute('src',pageUrl);
+                        }
+                    }
+                })
             }
-        }
-    }
+            
 
-    function loaded() {
-        var config = {
-            container: document.querySelector('.nv_heatmap'),
-            backgroundColor: "rgba(0,0,0,0.3)",
-            radius: 18,
-            maxOpacity: .5,
-            minOpacity: 0.3,
-            gradient: {
-                // enter n keys between 0 and 1 here
-                // for gradient color customization
-                '.5': 'blue',
-                '.8': 'red',
-                '.95': 'white'
-            },
-            blur: 0.85,
+            function maessageListener(evt) {
+                if (evt.data) {
+                    if (evt.data.type === 'ready') {
+                        console.log('ready');
+                    }
+                }
+            }
 
-        };
-        var width = document.body.clientWidth;
-        var heatmapInstance = h337.create(config);
-        data = {
-            data: [],
-        };
-        heatmapInstance.setData(data);
+            function loaded() {
+                var config = {
+                    container: document.querySelector('.nv_heatmap'),
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                    radius: 18,
+                    maxOpacity: .5,
+                    minOpacity: 0.3,
+                    gradient: {
+                        // enter n keys between 0 and 1 here
+                        // for gradient color customization
+                        '.5': 'blue',
+                        '.8': 'red',
+                        '.95': 'white'
+                    },
+                    blur: 0.85,
 
-    }
-</script>
+                };
+                var width = document.body.clientWidth;
+                var heatmapInstance = h337.create(config);
+                data = {
+                    data: [],
+                };
+                heatmapInstance.setData(data);
+            }
+        })();
+    </script>
+</body>
+
+</html>
