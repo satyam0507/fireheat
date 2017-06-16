@@ -33,8 +33,8 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
     if (typeof req.body === 'object') {
         var brandId = ""+req.body.brandID;
-        var domain = req.body.domain.replace(/[.$\[\]\/#]/g, ',');
-        var path = req.body.path.replace(/[.$\[\]\/#]/g, ',');
+        var domain = req.body.domain.replace(/[.$\[\]\/#]/g, '-');
+        var path = req.body.path.replace(/[.$\[\]\/#]/g, '-');
         var dataToPush = {
             activeTime: req.body.activeTime,
             pageheight: req.body.pageheight,
@@ -42,17 +42,17 @@ app.post('/', function (req, res) {
             data: req.body.points
         }
     }
-    console.log('brandId :: '+brandId);
-    console.log('domain :: '+domain);
-    console.log('path ::' +path);
-    console.log('dataToPush ::'+dataToPush);
-    // if (brandId && domain && path) {
-    //     dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
-    //         console.log('data saved');
-    //     }).catch(function(err){
-    //         console.log(err);
-    //     })
-    // }
+    // console.log('brandId :: '+brandId);
+    // console.log('domain :: '+domain);
+    // console.log('path ::' +path);
+    // console.log('dataToPush ::'+dataToPush);
+    if (brandId && domain && path) {
+        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
+            console.log('data saved');
+        }).catch(function(err){
+            console.log(err);
+        })
+    }
     res.send('under development');
 });
 
