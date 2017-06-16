@@ -47,9 +47,9 @@
             window.addEventListener('message', maessageListener);
             var btnEl =document.getElementById('saveBtn');
             var iframeEl =document.getElementById('webHeat');
+            var pageUrl =document.getElementById('pageUrl').value;
             if(btnEl){
                 btnEl.addEventListener('click',function(){
-                    var pageUrl =document.getElementById('pageUrl').value;
                     if(typeof pageUrl ==='string' && pageUrl.length){
                         if(iframeEl){
                             iframeEl.setAttribute('src',pageUrl);
@@ -68,6 +68,8 @@
                             iframeEl.setAttribute('width','100%');
                             iframeEl.classList.remove('hide');
                         }
+                     var url = new URL(pageUrl);
+                     console.log(url);
                     }
                 }
             }
