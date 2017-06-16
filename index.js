@@ -14,6 +14,7 @@ app.set('port', (process.env.PORT || 4444));
 
 app.get('/', function (req, res) {
     console.log('hahah');
+    res.send('under development');
 })
 
 app.post('/',function (req, res) {
