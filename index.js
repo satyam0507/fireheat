@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const admin = require("firebase-admin"),
-    serviceAccount = require("./private/serviceAccountKey.json");
+    serviceAccount = require("./private/serviceAccountKey.json"),
+    path = require('path'),
+    bodyParser = require('body-parser');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -17,7 +19,7 @@ app.get('/', function (req, res) {
     res.send('under development');
 })
 
-app.post('/',function (req, res) {
+app.post('/', function (req, res) {
     console.log('hahah');
     res.send('under development');
 });
