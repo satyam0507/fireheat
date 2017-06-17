@@ -54,8 +54,10 @@
             window.addEventListener('message', maessageListener);
             var btnEl = document.getElementById('saveBtn');
             var iframeEl = document.getElementById('webHeat');
-            var pageUrl = document.getElementById('pageDomain').value;
-            var pagePath = document.getElementById('pagePath').value;
+            var pageUrlEl = document.getElementById('pageDomain');
+            var pageUrl = pageUrlEl.value;
+            var pagePathEl = document.getElementById('pagePath');
+            var pagePath = pagePathEl.value;
             var dataToPaint = [];
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
@@ -78,7 +80,7 @@
                             if (nvData) {
                                 domainArray = Object.keys(nvData);
                                 domainArray.forEach(function (element) {
-                                    pageUrl.options[pageUrl.options.length] = new Option(
+                                    pageUrlEl.options[pageUrlEl.options.length] = new Option(
                                         element.replace(/[.$\[\]\/#]/g, ','));
                                 }, this);
                             }
