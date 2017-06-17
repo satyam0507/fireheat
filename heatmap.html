@@ -20,15 +20,15 @@
     <div>
         <form>
             <div class="form-group">
-                <label for="pageUrl">Example select</label>
-                <select class="form-control" id="pageDomain">
-                   
+                <label for="pageUrl">Domain</label>
+                <select class="form-control" id="pageDomain" onchange="getOptions()">
+                   <option selected>Select Your Domain</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="pagePath">Example select</label>
+                <label for="pagePath">Path</label>
                 <select class="form-control" id="pagePath">
-                   
+                   <option selected>Select Your Path</option>
                 </select>
             </div>
             <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
@@ -59,15 +59,22 @@
             var pagePathEl = document.getElementById('pagePath');
             var pagePath = pagePathEl.value;
             var dataToPaint = [];
+            var mainUrl;
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
                     pageUrl = document.getElementById('pageUrl').value;
-                    if (typeof pageUrl === 'string' && pageUrl.length) {
+                    pagePath = document.getElementById('pagePath').value;
+                    mainUrl =pageUrl+pagePath;
+                    if (typeof mainUrl === 'string' && mainUrl.length) {
                         if (iframeEl) {
-                            iframeEl.setAttribute('src', pageUrl);
+                            iframeEl.setAttribute('src', mainUrl);
                         }
                     }
                 })
+            }
+
+            function getOptions(evt){
+                console.log(evt);
             }
 
             function domLoadedListener(evt) {
@@ -122,7 +129,7 @@
                     iframeEl.setAttribute('width', '100%');
                     iframeEl.classList.remove('hide');
                 }
-                var url = new URL(pageUrl);
+                var url = new URL(mainUrl);
                 console.log(url);
                 var domain = url.origin;
                 var path = url.pathname;
