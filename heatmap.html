@@ -79,7 +79,7 @@
                 if (pageUrl) {
                     var paths = nvDataServer[pageUrl];
                     Object.keys(paths).forEach(function (element) {
-                        pagePathEl.options[pageUrlEl.options.length] = new Option(
+                        pagePathEl.options[pagePathEl.options.length] = new Option(
                             decodeURIComponent(element.replace(/[,$]/g, '.')),element
                         )
                     }, this);
