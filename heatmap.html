@@ -80,7 +80,8 @@
                     var paths = nvDataServer[pageUrl];
                     Object.keys(paths).forEach(function (element) {
                         pagePathEl.options[pageUrlEl.options.length] = new Option(
-                            element.replace(/[,$\[\]\/#]/g, '/'));
+                            decodeURIComponent(element.replace(/[,$]/g, '.')),element
+                        )
                     }, this);
                 }
             }
@@ -98,7 +99,8 @@
                                 domainArray = Object.keys(nvData);
                                 domainArray.forEach(function (element) {
                                     pageUrlEl.options[pageUrlEl.options.length] = new Option(
-                                        element);
+                                        decodeURIComponent(element.replace(/[,$]/g, '.')),element
+                                    );
                                 }, this);
                             }
                         })
