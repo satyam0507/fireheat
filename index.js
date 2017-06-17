@@ -44,7 +44,7 @@ app.get('/serverData', function (req, res) {
 app.get('/getUrl', function (ewq, res) {
     var brandID = "" + req.query.brandID;
     if (brandID) {
-        dataBaseRef.child(brandID).once('value').then(function (dataSnap) {
+        dataBaseRef.child(brandID).child('url').once('value').then(function (dataSnap) {
             var data = dataSnap.val();
             if (data) {
                 res.status(200).json(data);
@@ -54,6 +54,7 @@ app.get('/getUrl', function (ewq, res) {
         })
     }
 })
+
 app.get('/view/:name', function (req, res) {
 
     var options = {

@@ -20,8 +20,16 @@
     <div>
         <form>
             <div class="form-group">
-                <label for="pageUrl">PageUrl</label>
-                <input type="url" class="form-control" id="pageUrl" placeholder="Enter Page Url">
+                <label for="pageUrl">Example select</label>
+                <select class="form-control" id="pageDomain">
+                   
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pagePath">Example select</label>
+                <select class="form-control" id="pagePath">
+                   
+                </select>
             </div>
             <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
         </form>
@@ -42,10 +50,12 @@
     <script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
     <script>
         (function () {
+            window.addEventListener('DOMContentLoaded', domLoadedListener);
             window.addEventListener('message', maessageListener);
             var btnEl = document.getElementById('saveBtn');
             var iframeEl = document.getElementById('webHeat');
-            var pageUrl = document.getElementById('pageUrl').value;
+            var pageUrl = document.getElementById('pageDomain').value;
+            var pagePath = document.getElementById('pagePath').value;
             var dataToPaint = [];
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
@@ -58,6 +68,26 @@
                 })
             }
 
+            function domLoadedListener(evt) {
+                var brandID = '1161';
+                var domainArray = [];
+                var pathArray = [];
+                fetch('/getUrl?brandID=' + brandID).then(function (res) {
+                    if (res.status === 200) {
+                        res.json().then(function (nvData) {
+                            if (nvData) {
+                                domainArray = Object.keys(nvData);
+                                domainArray.forEach(function (element) {
+                                    pageUrl.options[pageUrl.options.length] = new Option(
+                                        'element');
+                                }, this);
+                            }
+                        })
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                })
+            }
 
             function maessageListener(evt) {
                 if (evt.data) {
