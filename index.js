@@ -101,8 +101,7 @@ app.post('/', function (req, res) {
         }).catch(function (err) {
             console.log(err);
         })
-        dataBaseRef.child(brandId).child('url').child(domain).update({d:true});
-        // dataBaseRef.child(brandId).child(domain).update({path:path});
+        dataBaseRef.child(brandId).child('url').child(domain).update({path:path});
     }
     res.send('under development');
 });
