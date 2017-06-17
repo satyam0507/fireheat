@@ -41,6 +41,19 @@ app.get('/serverData', function (req, res) {
 
 })
 
+app.get('/getUrl', function (ewq, res) {
+    var brandID = "" + req.query.brandID;
+    if (brandID) {
+        dataBaseRef.child(brandID).once('value').then(function (dataSnap) {
+            var data = dataSnap.val();
+            if (data) {
+                res.status(200).json(data);
+            } else {
+                res.status(204).end();
+            }
+        })
+    }
+})
 app.get('/view/:name', function (req, res) {
 
     var options = {
@@ -88,6 +101,8 @@ app.post('/', function (req, res) {
         }).catch(function (err) {
             console.log(err);
         })
+        dataBaseRef.child(brandId).update({domain:domain});
+        dataBaseRef.child(brandId).child(domain).update({path:path});
     }
     res.send('under development');
 });
