@@ -64,7 +64,7 @@
                 btnEl.addEventListener('click', function () {
                     pageUrl = document.getElementById('pageUrl').value;
                     pagePath = document.getElementById('pagePath').value;
-                    mainUrl =pageUrl+pagePath;
+                    mainUrl = pageUrl + pagePath;
                     if (typeof mainUrl === 'string' && mainUrl.length) {
                         if (iframeEl) {
                             iframeEl.setAttribute('src', mainUrl);
@@ -73,9 +73,10 @@
                 })
             }
 
-            function getOptions(evt){
+            function getOptions(evt) {
                 console.log(evt);
             }
+            window.getOptions = getOptions;
 
             function domLoadedListener(evt) {
                 var brandID = '1161';
