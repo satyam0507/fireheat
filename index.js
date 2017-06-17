@@ -41,7 +41,7 @@ app.get('/serverData', function (req, res) {
 
 })
 
-app.get('/getUrl', function (ewq, res) {
+app.get('/getUrl', function (req, res) {
     var brandID = "" + req.query.brandID;
     if (brandID) {
         dataBaseRef.child(brandID).child('url').once('value').then(function (dataSnap) {

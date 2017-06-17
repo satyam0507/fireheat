@@ -79,7 +79,7 @@
                                 domainArray = Object.keys(nvData);
                                 domainArray.forEach(function (element) {
                                     pageUrl.options[pageUrl.options.length] = new Option(
-                                        'element');
+                                        element.replace(/[.$\[\]\/#]/g, ','));
                                 }, this);
                             }
                         })
