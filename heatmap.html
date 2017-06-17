@@ -47,6 +47,7 @@
             var btnEl = document.getElementById('saveBtn');
             var iframeEl = document.getElementById('webHeat');
             var pageUrl = document.getElementById('pageUrl').value;
+            var dataToPaint = [];
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
                     pageUrl = document.getElementById('pageUrl').value;
@@ -72,6 +73,15 @@
 
             function msgQuerySelector(evt) {
                 console.log(evt.data.nvData);
+                evt.data.nvData.forEach(function (el) {
+                    var obj = {
+                        x: Math.round((el.elHeight * el.y) + el.elOffset.top),
+                        y: Math.round((el.elWidth * el.x) + el.elOffset.left),
+                        value: 1
+                    }
+                    dataToPaint.push(obj);
+                }, this);
+                paint();
             }
 
             function msgReady(evt) {
@@ -132,7 +142,7 @@
                 })
             }
 
-            function loaded() {
+            function paint() {
                 var config = {
                     container: document.querySelector('.nv_heatmap'),
                     backgroundColor: "rgba(0,0,0,0.3)",
@@ -152,7 +162,7 @@
                 var width = document.body.clientWidth;
                 var heatmapInstance = h337.create(config);
                 data = {
-                    data: [],
+                    data: dataToPaint,
                 };
                 heatmapInstance.setData(data);
             }
