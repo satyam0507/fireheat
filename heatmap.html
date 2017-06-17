@@ -17,29 +17,34 @@
             display: none!important;
         }
     </style>
-    <div>
-        <form>
-            <div class="form-group">
-                <label for="pageUrl">Domain</label>
-                <select class="form-control" id="pageDomain" onchange="getOptions()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 offset-sm-6">
+                <div>
+                    <form>
+                        <div class="form-group">
+                            <label for="pageUrl">Domain</label>
+                            <select class="form-control" id="pageDomain" onchange="getOptions()">
                    <option selected>Select Your Domain</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="pagePath">Path</label>
-                <select class="form-control" id="pagePath">
+                        </div>
+                        <div class="form-group">
+                            <label for="pagePath">Path</label>
+                            <select class="form-control" id="pagePath">
                    <option selected>Select Your Path</option>
                 </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                    </form>
+                </div>
             </div>
-            <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
-        </form>
+        </div>
+        <div class="row">
+            <div class="nv_heatmap">
+                <iframe id="webHeat" height="0" width="0" class="hide" frameborder="0"> </iframe>
+            </div>
+        </div>
     </div>
-    <div class="nv_heatmap">
-
-        <iframe id="webHeat" height="0" width="0" class="hide" frameborder="0"> </iframe>
-
-    </div>
-
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
         crossorigin="anonymous"></script>
@@ -80,7 +85,7 @@
                     var paths = nvDataServer[pageUrl];
                     Object.keys(paths).forEach(function (element) {
                         pagePathEl.options[pagePathEl.options.length] = new Option(
-                            decodeURIComponent(element.replace(/[,$]/g, '.')),element
+                            decodeURIComponent(element.replace(/[,$]/g, '.')), element
                         )
                     }, this);
                 }
@@ -99,7 +104,8 @@
                                 domainArray = Object.keys(nvData);
                                 domainArray.forEach(function (element) {
                                     pageUrlEl.options[pageUrlEl.options.length] = new Option(
-                                        decodeURIComponent(element.replace(/[,$]/g, '.')),element
+                                        decodeURIComponent(element.replace(/[,$]/g, '.')),
+                                        element
                                     );
                                 }, this);
                             }
