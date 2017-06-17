@@ -141,8 +141,8 @@
                 }
                 var url = new URL(mainUrl);
                 console.log(url);
-                var domain = url.origin;
-                var path = url.pathname;
+                var domain = encodeURIComponent(url.origin);
+                var path = encodeURIComponent(url.pathname);
                 var brandID = '1161';
                 var dataArray = [];
                 fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID=' + brandID).then(function (res) {
