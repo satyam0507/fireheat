@@ -59,6 +59,7 @@
             var pagePathEl = document.getElementById('pagePath');
             var pagePath = pagePathEl.value;
             var dataToPaint = [];
+            var nvDataServer;
             var mainUrl;
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
@@ -74,7 +75,14 @@
             }
 
             function getOptions(evt) {
-                console.log(evt);
+                pageUrl = document.getElementById('pageUrl').value;
+                if (pageUrl) {
+                    var paths = nvDataServer[pageUrl];
+                    Object.keys(paths).forEach(function (element) {
+                        pagePathEl.options[pageUrlEl.options.length] = new Option(
+                            element);
+                    }, this);
+                }
             }
             window.getOptions = getOptions;
 
@@ -86,10 +94,11 @@
                     if (res.status === 200) {
                         res.json().then(function (nvData) {
                             if (nvData) {
+                                nvDataServer = nvData;
                                 domainArray = Object.keys(nvData);
                                 domainArray.forEach(function (element) {
                                     pageUrlEl.options[pageUrlEl.options.length] = new Option(
-                                        element.replace(/[,$\[\]\/#]/g, '/'));
+                                        element);
                                 }, this);
                             }
                         })
