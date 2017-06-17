@@ -128,12 +128,14 @@
             function msgQuerySelector(evt) {
                 console.log(evt.data.nvData);
                 evt.data.nvData.forEach(function (el) {
-                    var obj = {
-                        y: Math.round((el.elHeight * el.y) + el.elOffset.top),
-                        x: Math.round((el.elWidth * el.x) + el.elOffset.left),
-                        value: 1
+                    if (el.found) {
+                        var obj = {
+                            y: Math.round((el.elHeight * el.y) + el.elOffset.top),
+                            x: Math.round((el.elWidth * el.x) + el.elOffset.left),
+                            value: 1
+                        }
+                        dataToPaint.push(obj);
                     }
-                    dataToPaint.push(obj);
                 }, this);
                 paint();
             }
