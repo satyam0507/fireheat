@@ -80,7 +80,7 @@
                     var paths = nvDataServer[pageUrl];
                     Object.keys(paths).forEach(function (element) {
                         pagePathEl.options[pageUrlEl.options.length] = new Option(
-                            element);
+                            element.replace(/[,$\[\]\/#]/g, '/'));
                     }, this);
                 }
             }
