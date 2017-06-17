@@ -68,7 +68,7 @@
                     mainUrl = pageUrl + pagePath;
                     if (typeof mainUrl === 'string' && mainUrl.length) {
                         if (iframeEl) {
-                            iframeEl.setAttribute('src', mainUrl);
+                            iframeEl.setAttribute('src', decodeURIComponent(mainUrl.replace(/[,$]/g, '.')));
                         }
                     }
                 })
