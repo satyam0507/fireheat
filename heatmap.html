@@ -141,7 +141,7 @@
                     iframeEl.setAttribute('width', '100%');
                     iframeEl.classList.remove('hide');
                 }
-                var url = new URL(mainUrl);
+                var url = new URL(decodeURIComponent(mainUrl.replace(/[,$]/g, '.')));
                 console.log(url);
                 var domain = encodeURIComponent(url.origin);
                 var path = encodeURIComponent(url.pathname);
