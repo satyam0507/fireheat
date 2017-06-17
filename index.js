@@ -23,8 +23,22 @@ admin.initializeApp({
 
 const dataBaseRef = admin.database().ref("fireheat/");
 
-app.get('/serverData',function(req,res){
-    console.log(req);
+app.get('/serverData', function (req, res) {
+    console.log(req.query);
+    var brandID = "" + req.query.brandID;
+    var domain = req.query.domain.replace(/[.$\[\]\/#]/g, '-');
+    var path = req.query.path.replace(/[.$\[\]\/#]/g, '-');
+    if (brandID && domain && path) {
+        dataBaseRef.child(brandID + "/" + domain + "/" + path).once('value').then(function (dataSnap) {
+            var data = dataSnap.val();
+            if (data) {
+                res.status(200).json(data);
+            } else {
+                res.status(204).end();
+            }
+        })
+    }
+
 })
 
 app.get('/view/:name', function (req, res) {
@@ -54,7 +68,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     if (typeof req.body === 'object') {
-        var brandId = ""+req.body.brandID;
+        var brandId = "" + req.body.brandID;
         var domain = req.body.domain.replace(/[.$\[\]\/#]/g, '-');
         var path = req.body.path.replace(/[.$\[\]\/#]/g, '-');
         var dataToPush = {
@@ -69,9 +83,9 @@ app.post('/', function (req, res) {
     // console.log('path ::' +path);
     // console.log('dataToPush ::'+dataToPush);
     if (brandId && domain && path) {
-        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function(res){
+        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function (res) {
             console.log('data saved');
-        }).catch(function(err){
+        }).catch(function (err) {
             console.log(err);
         })
     }

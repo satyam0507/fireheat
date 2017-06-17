@@ -62,26 +62,74 @@
             function maessageListener(evt) {
                 if (evt.data) {
                     if (evt.data.type === 'ready') {
-                        console.log('ready');
-                        if (evt.data.nvData) {
-                            iframeEl.setAttribute('height', evt.data.nvData.height);
-                            iframeEl.setAttribute('width', '100%');
-                            iframeEl.classList.remove('hide');
-                        }
-                        var url = new URL(pageUrl);
-                        console.log(url);
-                        var domain = url.origin;
-                        var path = url.pathname;
-                        var brandID ='1161';
-                        fetch('/serverData?domain='+domain+'&path='+path+'brandID=').then(function (res) {
-                            JSON.parse(res).then(function (data) {
-                                console.log(data);
-                            })
-                        }).catch(function (err) {
-                            console.log(err);
-                        })
+                        msgReady(evt);
+                    }
+                    if (evt.data.type === 'querySelector') {
+                        msgQuerySelector(evt);
                     }
                 }
+            }
+
+            function msgQuerySelector(evt) {
+                console.log(evt.data.nvData);
+            }
+
+            function msgReady(evt) {
+                console.log('ready');
+                if (evt.data.nvData) {
+                    iframeEl.setAttribute('height', evt.data.nvData.height);
+                    iframeEl.setAttribute('width', '100%');
+                    iframeEl.classList.remove('hide');
+                }
+                var url = new URL(pageUrl);
+                console.log(url);
+                var domain = url.origin;
+                var path = url.pathname;
+                var brandID = '1161';
+                var dataArray = [];
+                fetch('/serverData?domain=' + domain + '&path=' + path + 'brandID=').then(function (res) {
+                    if (res.status === 200) {
+                        res.json().then(function (nvData) {
+                            if (nvData) {
+                                Object.keys(nvData).forEach(function (key) {
+                                    if (nvData[key].data.length) {
+                                        dataArray.push(JSON.parse(nvData[key].data));
+                                        flattenData(dataArray).then(function (data) {
+                                            if (Array.isArray(data) && data.length >
+                                                0) {
+                                                var msg = {
+                                                    type: 'querySelector',
+                                                    nvData: data
+                                                }
+                                                evt.source.postMessage(msg, evt.origin);
+                                            }
+                                        }).catch(function (err) {
+                                            console.log(err);
+                                        })
+                                    }
+                                }, this);
+                            }
+                        })
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                })
+            }
+
+            function flattenData(data) {
+                var dataArray = [];
+                return new Promise(function (resolve, reject) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        data.forEach(function (arrayElement) {
+                            if (Array.isArray(arrayElement) && arrayElement.length > 0) {
+                                arrayElement.forEach(function (element) {
+                                    dataArray.push(element);
+                                }, this);
+                            }
+                        }, this);
+                        resolve(dataArray);
+                    } else reject(false);
+                })
             }
 
             function loaded() {
