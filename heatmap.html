@@ -87,7 +87,7 @@
                 var path = url.pathname;
                 var brandID = '1161';
                 var dataArray = [];
-                fetch('/serverData?domain=' + domain + '&path=' + path + 'brandID=').then(function (res) {
+                fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID='+brandID).then(function (res) {
                     if (res.status === 200) {
                         res.json().then(function (nvData) {
                             if (nvData) {
