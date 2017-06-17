@@ -73,7 +73,7 @@
                         var domain = url.origin;
                         var path = url.pathname;
                         var brandID ='1161';
-                        fetch('/serverData?domain='+domain+'&path='+path+'brandID='+).then(function (res) {
+                        fetch('/serverData?domain='+domain+'&path='+path+'brandID=').then(function (res) {
                             JSON.parse(res).then(function (data) {
                                 console.log(data);
                             })
