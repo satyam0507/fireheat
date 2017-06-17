@@ -26,8 +26,8 @@ const dataBaseRef = admin.database().ref("fireheat/");
 app.get('/serverData', function (req, res) {
     console.log(req.query);
     var brandID = "" + req.query.brandID;
-    var domain = req.query.domain;
-    var path = req.query.path;
+    var domain = req.query.domain.replace(/[.$\[\]\/#]/g, ',');
+    var path = req.query.path.replace(/[.$\[\]\/#]/g, ',');
     if (brandID && domain && path) {
         dataBaseRef.child(brandID + "/" + domain + "/" + path).once('value').then(function (dataSnap) {
             var data = dataSnap.val();
@@ -83,8 +83,8 @@ app.get('/', function (req, res) {
 app.post('/', function (req, res) {
     if (typeof req.body === 'object') {
         var brandId = "" + req.body.brandID;
-        var domain = req.body.domain;
-        var path = req.body.path;
+        var domain = req.body.domain.replace(/[.$\[\]\/#]/g, ',');
+        var path = req.body.path.replace(/[.$\[\]\/#]/g, ',');
         var dataToPush = {
             activeTime: req.body.activeTime,
             pageheight: req.body.pageheight,
