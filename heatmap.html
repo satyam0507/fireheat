@@ -63,7 +63,7 @@
             var mainUrl;
             if (btnEl) {
                 btnEl.addEventListener('click', function () {
-                    pageUrl = document.getElementById('pageUrl').value;
+                    pageUrl = document.getElementById('pageDomain').value;
                     pagePath = document.getElementById('pagePath').value;
                     mainUrl = pageUrl + pagePath;
                     if (typeof mainUrl === 'string' && mainUrl.length) {
@@ -75,7 +75,7 @@
             }
 
             function getOptions(evt) {
-                pageUrl = document.getElementById('pageUrl').value;
+                pageUrl = document.getElementById('pageDomain').value;
                 if (pageUrl) {
                     var paths = nvDataServer[pageUrl];
                     Object.keys(paths).forEach(function (element) {
