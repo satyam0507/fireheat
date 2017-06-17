@@ -74,8 +74,8 @@
                 console.log(evt.data.nvData);
                 evt.data.nvData.forEach(function (el) {
                     var obj = {
-                        x: Math.round((el.elHeight * el.y) + el.elOffset.top),
-                        y: Math.round((el.elWidth * el.x) + el.elOffset.left),
+                        y: Math.round((el.elHeight * el.y) + el.elOffset.top),
+                        x: Math.round((el.elWidth * el.x) + el.elOffset.left),
                         value: 1
                     }
                     dataToPaint.push(obj);
