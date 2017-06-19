@@ -118,6 +118,9 @@ app.post('/', function (req, res) {
             a: 1
         });
     }
+    res.set({
+        'Access-Control-Allow-Origin':'*'
+    });
     res.send('under development');
 });
 
