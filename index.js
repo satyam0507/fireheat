@@ -26,10 +26,11 @@ const dataBaseRef = admin.database().ref("fireheat/");
 app.get('/serverData', function (req, res) {
     console.log(req.query);
     var brandID = "" + req.query.brandID;
+    var device = "" + req.query.device;
     var domain = encodeURIComponent(req.query.domain).replace(/[.$\[\]\/#]/g, ',');
     var path = encodeURIComponent(req.query.path).replace(/[.$\[\]\/#]/g, ',');
-    if (brandID && domain && path) {
-        dataBaseRef.child(brandID + "/" + domain + "/" + path).once('value').then(function (dataSnap) {
+    if (brandID && domain && path && device) {
+        dataBaseRef.child(brandID + "/" + domain + "/" + path + "/" + device).once('value').then(function (dataSnap) {
             var data = dataSnap.val();
             if (data) {
                 res.status(200).json(data);
@@ -37,6 +38,8 @@ app.get('/serverData', function (req, res) {
                 res.status(204).end();
             }
         })
+    } else {
+        res.status(204).end();
     }
 
 })
@@ -52,6 +55,8 @@ app.get('/getUrl', function (req, res) {
                 res.status(204).end();
             }
         })
+    } else {
+        res.status(204).end();
     }
 })
 
@@ -85,6 +90,7 @@ app.post('/', function (req, res) {
         var brandId = "" + req.body.brandID;
         var domain = req.body.domain.replace(/[.$\[\]\/#]/g, ',');
         var path = req.body.path.replace(/[.$\[\]\/#]/g, ',');
+        var device;
         var dataToPush = {
             activeTime: req.body.activeTime,
             pageheight: req.body.pageheight,
@@ -92,12 +98,18 @@ app.post('/', function (req, res) {
             data: JSON.stringify(req.body.points)
         }
     }
-    // console.log('brandId :: '+brandId);
-    // console.log('domain :: '+domain);
-    // console.log('path ::' +path);
-    // console.log('dataToPush ::'+dataToPush);
+
+    if (req.body.pagewidth < 576) {
+        device = 'mobile';
+    }
+    if (req.body.pagewidth > 576 && req.body.pagewidth < 992) {
+        device = 'tablet';
+    }
+    if (req.body.pagewidth > 992) {
+        device = 'desktop';
+    }
     if (brandId && domain && path) {
-        dataBaseRef.child(brandId).child(domain).child(path).push(dataToPush).then(function (res) {
+        dataBaseRef.child(brandId).child(domain).child(path).child(device).push(dataToPush).then(function (res) {
             console.log('data saved');
         }).catch(function (err) {
             console.log(err);

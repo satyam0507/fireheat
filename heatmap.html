@@ -25,14 +25,23 @@
                         <div class="form-group">
                             <label for="pageUrl">Domain</label>
                             <select class="form-control" id="pageDomain" onchange="getOptions()">
-                   <option selected>Select Your Domain</option>
-                </select>
+                                <option selected>Select Your Domain</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="pagePath">Path</label>
                             <select class="form-control" id="pagePath">
-                   <option selected>Select Your Path</option>
-                </select>
+                                <option selected>Select Your Path</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="device">Domain</label>
+                            <select class="form-control" id="device">
+                                <option selected>Select Your Device</option>
+                                <option>Mobile</option>
+                                <option>Tablet</option>
+                                <option>Desktop</option>
+                            </select>
                         </div>
                         <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
                     </form>
@@ -58,6 +67,8 @@
             var btnEl = document.getElementById('saveBtn');
             var iframeEl = document.getElementById('webHeat');
             var pageUrlEl = document.getElementById('pageDomain');
+            var deviceEl =document.getElementById('device');
+            var device =deviceEl.value;
             var pageUrl = pageUrlEl.value;
             var pagePathEl = document.getElementById('pagePath');
             var pagePath = pagePathEl.value;
@@ -69,6 +80,7 @@
                     pageUrl = document.getElementById('pageDomain').value;
                     pagePath = document.getElementById('pagePath').value;
                     mainUrl = pageUrl + pagePath;
+                    device =document.getElementById('device').value;
                     if (typeof mainUrl === 'string' && mainUrl.length) {
                         if (iframeEl) {
                             iframeEl.setAttribute('src', decodeURIComponent(mainUrl.replace(/[,$]/g, '.')));
@@ -153,7 +165,7 @@
                 var path = encodeURIComponent(url.pathname);
                 var brandID = '1161';
                 var dataArray = [];
-                fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID=' + brandID).then(function (res) {
+                fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID=' + brandID+"&device="+device).then(function (res) {
                     if (res.status === 200) {
                         res.json().then(function (nvData) {
                             if (nvData) {
