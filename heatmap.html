@@ -67,8 +67,8 @@
             var btnEl = document.getElementById('saveBtn');
             var iframeEl = document.getElementById('webHeat');
             var pageUrlEl = document.getElementById('pageDomain');
-            var deviceEl =document.getElementById('device');
-            var device =deviceEl.value;
+            var deviceEl = document.getElementById('device');
+            var device = deviceEl.value;
             var pageUrl = pageUrlEl.value;
             var pagePathEl = document.getElementById('pagePath');
             var pagePath = pagePathEl.value;
@@ -80,7 +80,7 @@
                     pageUrl = document.getElementById('pageDomain').value;
                     pagePath = document.getElementById('pagePath').value;
                     mainUrl = pageUrl + pagePath;
-                    device =document.getElementById('device').value;
+                    device = document.getElementById('device').value;
                     if (typeof mainUrl === 'string' && mainUrl.length) {
                         if (iframeEl) {
                             iframeEl.setAttribute('src', decodeURIComponent(mainUrl.replace(/[,$]/g, '.')));
@@ -156,7 +156,15 @@
                 console.log('ready');
                 if (evt.data.nvData) {
                     iframeEl.setAttribute('height', evt.data.nvData.height);
-                    iframeEl.setAttribute('width', '100%');
+                    if (device === 'desktop') {
+                        iframeEl.setAttribute('width', '100%');
+                    }
+                    if (device === 'tablet') {
+                        iframeEl.setAttribute('width', '768px');
+                    }
+                    if (device === 'mobile') {
+                        iframeEl.setAttribute('width', '375px');
+                    }
                     iframeEl.classList.remove('hide');
                 }
                 var url = new URL(decodeURIComponent(mainUrl.replace(/[,$]/g, '.')));
@@ -165,7 +173,8 @@
                 var path = encodeURIComponent(url.pathname);
                 var brandID = '1161';
                 var dataArray = [];
-                fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID=' + brandID+"&device="+device).then(function (res) {
+                fetch('/serverData?domain=' + domain + '&path=' + path + '&brandID=' + brandID + "&device=" +
+                    device).then(function (res) {
                     if (res.status === 200) {
                         res.json().then(function (nvData) {
                             if (nvData) {
