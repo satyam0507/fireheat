@@ -64,18 +64,6 @@
 
     <script src="https://shielded-atoll-93820.herokuapp.com/view/minimap.min.js"></script>
     <script>
-        var previewBody = $('body').minimap({
-            heightRatio: 0.6,
-            widthRatio: 0.05,
-            offsetHeightRatio: 0.035,
-            offsetWidthRatio: 0.035,
-            position: "right",
-            touch: true,
-            smoothScroll: true,
-            smoothScrollDelay: 200,
-            onPreviewChange: function (minimap, scale) {},
-            disableFind: false
-        });
         (function () {
 
             window.addEventListener('DOMContentLoaded', domLoadedListener);
@@ -170,6 +158,18 @@
 
             function msgReady(evt) {
                 console.log('ready');
+                var previewBody = $('.nv_heatmap').minimap({
+                    heightRatio: 0.6,
+                    widthRatio: 0.05,
+                    offsetHeightRatio: 0.035,
+                    offsetWidthRatio: 0.035,
+                    position: "right",
+                    touch: true,
+                    smoothScroll: true,
+                    smoothScrollDelay: 200,
+                    onPreviewChange: function (minimap, scale) {},
+                    disableFind: false
+                });
                 if (evt.data.nvData) {
                     iframeEl.setAttribute('height', evt.data.nvData.height);
                     if (device === 'desktop') {
