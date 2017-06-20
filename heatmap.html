@@ -60,8 +60,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://devheat.notifyvisitors.com/js/heatmap/heatmap.js"></script>
+    <link rel="stylesheet" href="https://shielded-atoll-93820.herokuapp.com/view/minimap.min.css" />
+
+    <script src="https://shielded-atoll-93820.herokuapp.com/view/minimap.min.js"></script>
     <script>
+        var previewBody = $('body').minimap({
+            heightRatio: 0.6,
+            widthRatio: 0.05,
+            offsetHeightRatio: 0.035,
+            offsetWidthRatio: 0.035,
+            position: "right",
+            touch: true,
+            smoothScroll: true,
+            smoothScrollDelay: 200,
+            onPreviewChange: function (minimap, scale) {},
+            disableFind: false
+        });
         (function () {
+
             window.addEventListener('DOMContentLoaded', domLoadedListener);
             window.addEventListener('message', maessageListener);
             var btnEl = document.getElementById('saveBtn');
