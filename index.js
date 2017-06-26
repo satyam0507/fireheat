@@ -85,6 +85,10 @@ app.get('/', function (req, res) {
     res.send('under development');
 })
 
+app.post('/test',function(req,res){
+    console.log(req.body);
+})
+
 app.post('/', function (req, res) {
     if (typeof req.body === 'object') {
         var brandId = "" + req.body.brandID;
